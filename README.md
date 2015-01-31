@@ -48,7 +48,7 @@ No changes detected.
 
 ## Requirements
 
-* JDK 6+
+* JDK 7+
 * POSIX-compliant OS
 
 You should be able to get ScrubSum working in Windows with a little hacking, but
