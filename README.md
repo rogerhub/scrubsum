@@ -54,6 +54,28 @@ No changes detected.
 You should be able to get ScrubSum working in Windows with a little hacking, but
 it is not officially supported.
 
+## Performance tuning
+
+On magnetic disks (especially high-latency USB external drives), there are high
+costs to reading large numbers of small files. This is because magnetic disks
+typically have high random-access latencies compared to the bandwidth they offer
+for sequential reads.
+
+ScrubSum utilizes a large number of threads for IO operations, to try to keep
+the disk request queue relatively busy. This is so that the disk controller can
+better optimize the order in which it services requests. You can improve the
+performance of ScrubSum further by compacting infrequently-accessed data into a
+single compressed archive, which is treated as a single file on the file system.
+I recommend the widely-compatible .zip format instead of typical .tar archives,
+because .zip files support constant-time random access operations to individual
+files. With this scheme, I can max out the sequential read bandwidth of my
+external hard drive with ScrubSum.
+
+You can also adjust the number of threads that ScrubSum uses internally, but the
+default value seems to work best under my unscientific testing. If you are
+performing data scrubbing on a Solid State Drive, you shouldn't need to worry
+about these performance details too much.
+
 ## Compatibility with shasum
 
 The popular shasum utility (included in Ubuntu and OS X) is compatible with
