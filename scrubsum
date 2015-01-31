@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+BASE_DIR=$(dirname "$0")
+
+if [[ -z "${BASE_DIR}" ]]; then
+    echo "Cannot find ScrubSum base install path."
+    exit 1
+fi
+
+SOURCE_FILE="${BASE_DIR}/ScrubSum.java"
+CLASS_FILE="${BASE_DIR}/ScrubSum.class"
+
+if [[ ! -f "${CLASS_FILE}" ]] || [[ "${SOURCE_FILE}" -nt "${CLASS_FILE}" ]]; then
+    rm -r -- "${BASE_DIR}/*.class" >/dev/null 2>/dev/null || true
+    javac "${SOURCE_FILE}"
+fi
+
+java -cp "${BASE_DIR}" ScrubSum $*
