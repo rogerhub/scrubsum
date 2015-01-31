@@ -84,5 +84,5 @@ with version control, text processing utilities, etc.
 
 To check ScrubSum's checksum file with shasum, run:
 
-    shasum -c SCRUBSUM
+    shasum -c SCRUBSUMS
 
